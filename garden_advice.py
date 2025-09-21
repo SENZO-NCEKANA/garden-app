@@ -45,9 +45,14 @@ def load_tips():
     except json.JSONDecodeError as e:
         print(f"Warning: Error parsing JSON file: {e}. Using default tips.")
         return default_tips
-    except (OSError, PermissionError, UnicodeDecodeError) as e:
-        print(f"Warning: Unexpected error loading file: {e}. "
-              f"Using default tips.")
+    except OSError as e:
+        print(f"Warning: Error loading file: {e}. Using default tips.")
+        return default_tips
+    except PermissionError as e:
+        print(f"Warning: Permission error: {e}. Using default tips.")
+        return default_tips
+    except Exception as e:
+        print(f"Warning: Unexpected error: {e}. Using default tips.")
         return default_tips
 
 
