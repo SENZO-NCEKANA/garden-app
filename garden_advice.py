@@ -1,7 +1,7 @@
-"""garden advice app"""
-
-# Garden advice app
-# gives gardening tips based on month and season
+"""
+Garden advice app
+Gives gardening tips based on month and season
+"""
 
 import datetime
 import json
@@ -33,7 +33,6 @@ default_tips = {
 
 def load_tips():
     """load tips from file"""
-    # try to load from json file
     try:
         f = open('tips_config.json', 'r', encoding='utf-8')
         data = json.load(f)
@@ -49,8 +48,9 @@ tips = load_tips()
 
 
 def get_season(month):
-    """get season for month"""
-    # southern hemisphere seasons
+    """
+    Get season for month
+    """
     if month == 9 or month == 10 or month == 11:
         return "Spring"
     elif month == 12 or month == 1 or month == 2:
@@ -62,8 +62,10 @@ def get_season(month):
 
 
 def get_garden_tips(month):
-    """get tips for month"""
-    # check if month is valid
+    """
+    Get tips for month
+    check if month is valid
+    """
     if month < 1 or month > 12:
         print("Error: Month must be between 1 and 12")
         return ["Invalid month"]
@@ -76,8 +78,9 @@ def get_garden_tips(month):
 
 
 def display_advice():
-    """show advice"""
-    # get current month
+    """
+    Show advice and get current month
+    """
     now = datetime.datetime.now()
     current_month = now.month
 
@@ -100,7 +103,6 @@ def display_advice():
 
 def main():
     """main function"""
-    # run the app
     display_advice()
 
 
