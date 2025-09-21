@@ -1,0 +1,109 @@
+"""garden advice app"""
+
+# Garden advice app
+# gives gardening tips based on month and season
+
+import datetime
+import json
+
+# default tips if config file is missing
+default_tips = {
+    "Spring": [
+        "Start seeds indoors for warm-season crops",
+        "Prepare garden beds by adding compost",
+        "Plant cool-season vegetables like lettuce and peas"
+    ],
+    "Summer": [
+        "Water plants deeply in the morning",
+        "Harvest vegetables regularly to encourage production",
+        "Mulch around plants to retain moisture"
+    ],
+    "Autumn": [
+        "Plant bulbs for spring flowers",
+        "Harvest and store root vegetables",
+        "Clean up garden debris to prevent disease"
+    ],
+    "Winter": [
+        "Protect tender plants from frost",
+        "Plan your garden layout for next year",
+        "Order seeds and bulbs for spring planting"
+    ]
+}
+
+
+def load_tips():
+    """load tips from file"""
+    # try to load from json file
+    try:
+        f = open('tips_config.json', 'r', encoding='utf-8')
+        data = json.load(f)
+        f.close()
+        return data
+    except (FileNotFoundError, json.JSONDecodeError):
+        print("Using default tips")
+        return default_tips
+
+
+# load the tips
+tips = load_tips()
+
+
+def get_season(month):
+    """get season for month"""
+    # southern hemisphere seasons
+    if month == 9 or month == 10 or month == 11:
+        return "Spring"
+    elif month == 12 or month == 1 or month == 2:
+        return "Summer"
+    elif month == 3 or month == 4 or month == 5:
+        return "Autumn"
+    else:
+        return "Winter"
+
+
+def get_garden_tips(month):
+    """get tips for month"""
+    # check if month is valid
+    if month < 1 or month > 12:
+        print("Error: Month must be between 1 and 12")
+        return ["Invalid month"]
+
+    season = get_season(month)
+    if season in tips:
+        return tips[season]
+    else:
+        return ["No tips available"]
+
+
+def display_advice():
+    """show advice"""
+    # get current month
+    now = datetime.datetime.now()
+    current_month = now.month
+
+    # get season and tips
+    season = get_season(current_month)
+    tips_list = get_garden_tips(current_month)
+
+    # display info
+    print("Welcome to Garden Advice!")
+    print("Current month:", current_month)
+    print("Season:", season)
+    print("\nGardening Tips:")
+
+    # show tips
+    counter = 1
+    for tip in tips_list:
+        print(str(counter) + ". " + tip)
+        counter = counter + 1
+
+
+def main():
+    """main function"""
+    # run the app
+    display_advice()
+
+
+# run main function
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,26 @@
+{
+    "Spring": [
+        "Plant warm-season vegetables and flowers",
+        "Prepare garden beds with organic compost",
+        "Start seeds indoors for tender crops",
+        "Monitor soil moisture and adjust watering"
+    ],
+    "Summer": [
+        "Water plants deeply in early morning",
+        "Harvest crops regularly to encourage growth",
+        "Apply mulch to conserve soil moisture",
+        "Provide shade for heat-sensitive plants"
+    ],
+    "Autumn": [
+        "Plant cool-season vegetables and bulbs",
+        "Harvest and preserve summer produce",
+        "Plant trees and shrubs for next season",
+        "Clean up garden debris and prepare beds"
+    ],
+    "Winter": [
+        "Protect tender plants from cold weather",
+        "Plan next year's garden layout",
+        "Order seeds and supplies for spring",
+        "Maintain winter crops with care"
+    ]
+}
