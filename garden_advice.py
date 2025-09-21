@@ -33,14 +33,20 @@ default_tips = {
 
 def load_tips():
     """load tips from file"""
-    # TODO: Add better error handling for file loading
+    # add better error handling for file loading
     try:
         f = open('tips_config.json', 'r', encoding='utf-8')
         data = json.load(f)
         f.close()
         return data
-    except (FileNotFoundError, json.JSONDecodeError):
-        print("Using default tips")
+    except FileNotFoundError:
+        print("Warning: tips_config.json not found. Using default tips.")
+        return default_tips
+    except json.JSONDecodeError as e:
+        print(f"Warning: Error parsing JSON file: {e}. Using default tips.")
+        return default_tips
+    except Exception as e:
+        print(f"Warning: Unexpected error loading file: {e}. Using default tips.")
         return default_tips
 
 
@@ -67,7 +73,10 @@ def get_garden_tips(month):
     Get tips for month
     check if month is valid
     """
-    # TODO: Add input validation for non-integer values
+    # add input validation for non-integer values
+    if not isinstance(month, int):
+        print("Error: Month must be an integer")
+        return ["Invalid month"]
     if month < 1 or month > 12:
         print("Error: Month must be between 1 and 12")
         return ["Invalid month"]

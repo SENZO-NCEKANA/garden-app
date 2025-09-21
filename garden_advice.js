@@ -80,10 +80,9 @@ function getSeason(month) {
 
 // get tips for month
 function getGardenTips(month) {
-    // TODO: Validate month more strictly (check for non-numeric values)
-    // check if month is valid
-    if (month < 1 || month > 12) {
-        console.log("Error: Month must be between 1 and 12");
+    // validate month more strictly
+    if (isNaN(month) || month < 1 || month > 12 || !Number.isInteger(month)) {
+        console.log("Error: Month must be a valid integer between 1 and 12");
         return ["Invalid month"];
     }
 
