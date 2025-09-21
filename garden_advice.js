@@ -1,8 +1,8 @@
 // garden advice app
 
 // hardcoded values for season and plant type
-let season = "summer";
-let plantType = "flower";
+let season = "summer"; // TODO: Replace hardcoded season with user input or config
+let plantType = "flower"; // TODO: Replace hardcoded plantType with user input or config
 
 // variable to hold gardening advice
 let advice = "";
@@ -45,6 +45,7 @@ const plantAdvice = {
 
 // load tips from json file or use default
 function loadTips() {
+    // TODO: Load tips from JSON file instead of using defaultHardcodedTips
     // try to load from json file
     try {
         return defaultTips;
@@ -70,6 +71,7 @@ function getSeason(month) {
 
 // get tips for month
 function getGardenTips(month) {
+    // TODO: Validate month more strictly (check for non-numeric values)
     // check if month is valid
     if (month < 1 || month > 12) {
         console.log("Error: Month must be between 1 and 12");
