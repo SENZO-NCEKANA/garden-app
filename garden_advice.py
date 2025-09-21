@@ -46,7 +46,8 @@ def load_tips():
         print(f"Warning: Error parsing JSON file: {e}. Using default tips.")
         return default_tips
     except Exception as e:
-        print(f"Warning: Unexpected error loading file: {e}. Using default tips.")
+        print(f"Warning: Unexpected error loading file: {e}. "
+              f"Using default tips.")
         return default_tips
 
 
