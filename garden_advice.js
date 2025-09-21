@@ -86,14 +86,16 @@ function getGardenTips(month) {
 
 // determine advice based on season
 function getSeasonAdvice(season) {
-    if (season === "summer") {
-        return "Water your plants regularly and provide some shade.\n";
-    } else if (season === "winter") {
-        return "Protect your plants from frost with covers.\n";
-    } else if (season === "spring") {
-        return "Start planting and prepare your garden beds.\n";
-    } else if (season === "autumn") {
-        return "Harvest crops and prepare for winter.\n";
+    // convert season to match JSON format
+    var seasonKey = season.charAt(0).toUpperCase() + season.slice(1);
+    
+    if (seasonKey in tips) {
+        var seasonTips = tips[seasonKey];
+        var advice = "";
+        for (var i = 0; i < seasonTips.length; i++) {
+            advice += seasonTips[i] + "\n";
+        }
+        return advice;
     } else {
         return "No advice for this season.\n";
     }
