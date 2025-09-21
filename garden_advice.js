@@ -1,8 +1,17 @@
 // garden advice app
 
-// hardcoded values for season and plant type
-let season = "summer"; // TODO: Replace hardcoded season with user input or config
-let plantType = "flower"; // TODO: Replace hardcoded plantType with user input or config
+// get user input for season and plant type
+function getUserInput() {
+    // try to get from prompt, fallback to defaults
+    var season = prompt("Enter season (summer, winter, spring, autumn):") || "summer";
+    var plantType = prompt("Enter plant type (flower, vegetable, herb, tree):") || "flower";
+    return { season: season, plantType: plantType };
+}
+
+// get user input
+var userInput = getUserInput();
+var season = userInput.season;
+var plantType = userInput.plantType;
 
 // variable to hold gardening advice
 let advice = "";
