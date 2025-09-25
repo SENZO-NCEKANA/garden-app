@@ -168,6 +168,7 @@ def display_advice() -> None:
     """
     print("🌱 Welcome to Garden Advice! 🌱")
     print("=" * 50)
+    print("=" * 50)
 
     # Get month input from user
     current_month = get_user_input()
