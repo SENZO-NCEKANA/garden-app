@@ -80,20 +80,13 @@ TIPS = load_tips()
 
 def get_season(month: int) -> str:
     """
-    Determine the season based on the month.
+    Get season for month.
 
     Args:
         month (int): Month number (1-12)
 
     Returns:
         str: Season name ("Spring", "Summer", "Autumn", or "Winter")
-
-    Note:
-        This function uses Southern Hemisphere seasons:
-        - Spring: September, October, November
-        - Summer: December, January, February
-        - Autumn: March, April, May
-        - Winter: June, July, August
     """
     if month in [9, 10, 11]:
         return "Spring"
@@ -142,7 +135,9 @@ def get_user_input() -> int:
     """
     while True:
         try:
-            user_input = input("\nEnter a month (1-12) or press Enter for current month: ").strip()
+            user_input = input(
+                "\nEnter a month (1-12) or press Enter for current month: "
+            ).strip()
 
             # If user presses Enter, use current month
             if not user_input:
@@ -153,10 +148,13 @@ def get_user_input() -> int:
             if 1 <= month <= 12:
                 return month
             else:
-                print("❌ Error: Month must be between 1 and 12. Please try again.")
+                print("❌ Error: Month must be between 1 and 12. "
+                      "Please try again.")
+                continue
 
         except ValueError:
             print("❌ Error: Please enter a valid number between 1 and 12.")
+            continue
         except KeyboardInterrupt:
             print("\n\n👋 Goodbye! Happy gardening!")
             exit(0)
@@ -185,7 +183,8 @@ def display_advice() -> None:
     print("-" * 30)
 
     # Show tips with better formatting
-    if tips_list and tips_list[0] not in ["Invalid month", "No tips available"]:
+    if (tips_list and tips_list[0] not in
+            ["Invalid month", "No tips available"]):
         for index, tip in enumerate(tips_list, 1):
             print(f"  {index}. {tip}")
     else:
@@ -205,7 +204,9 @@ def show_multiple_months() -> None:
     months_to_show = []
     while True:
         try:
-            month_input = input("Enter a month (1-12) or 'done' to finish: ").strip().lower()
+            month_input = input(
+                "Enter a month (1-12) or 'done' to finish: "
+            ).strip().lower()
 
             if month_input == 'done':
                 break
@@ -234,7 +235,8 @@ def show_multiple_months() -> None:
             print(f"\n📅 Month {month} ({season}):")
             print("-" * 20)
 
-            if tips_list and tips_list[0] not in ["Invalid month", "No tips available"]:
+            if (tips_list and tips_list[0] not in
+                    ["Invalid month", "No tips available"]):
                 for index, tip in enumerate(tips_list, 1):
                     print(f"  {index}. {tip}")
             else:
@@ -267,7 +269,8 @@ def main() -> None:
                 print(f"\n💡 Gardening Tips for {season}:")
                 print("-" * 30)
 
-                if tips_list and tips_list[0] not in ["Invalid month", "No tips available"]:
+                if (tips_list and tips_list[0] not in
+                        ["Invalid month", "No tips available"]):
                     for index, tip in enumerate(tips_list, 1):
                         print(f"  {index}. {tip}")
                 else:
@@ -278,7 +281,8 @@ def main() -> None:
             elif choice == '3':
                 show_multiple_months()
             elif choice == '4':
-                print("\n👋 Thank you for using Garden Advice! Happy gardening! 🌿")
+                print("\n👋 Thank you for using Garden Advice! "
+                      "Happy gardening! 🌿")
                 break
             else:
                 print("❌ Invalid choice. Please select 1, 2, 3, or 4.")
@@ -293,3 +297,4 @@ def main() -> None:
 # Run main function when script is executed directly
 if __name__ == "__main__":
     main()
+
