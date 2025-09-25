@@ -5,7 +5,7 @@ A Python application that provides seasonal gardening tips based on the current
 month. The application loads tips from a JSON configuration file or falls back
 to default tips if the configuration file is not available.
 
-Author: Senzo Ncekana
+Author: Nelson
 Version: 1.0.0
 """
 
@@ -69,7 +69,7 @@ def load_tips() -> Dict[str, List[str]]:
     except OSError as error:
         print(f"Warning: Error loading file: {error}. Using default tips.")
         return DEFAULT_TIPS
-    except Exception as error:
+    except (ValueError, TypeError, AttributeError) as error:
         print(f"Warning: Unexpected error: {error}. Using default tips.")
         return DEFAULT_TIPS
 
@@ -158,7 +158,7 @@ def get_user_input() -> int:
         except KeyboardInterrupt:
             print("\n\n👋 Goodbye! Happy gardening!")
             exit(0)
-        except Exception as e:
+        except (TypeError, AttributeError) as e:
             print(f"❌ Unexpected error: {e}. Please try again.")
 
 
@@ -290,11 +290,10 @@ def main() -> None:
         except KeyboardInterrupt:
             print("\n\n👋 Goodbye! Happy gardening!")
             break
-        except Exception as e:
+        except (ValueError, TypeError, AttributeError) as e:
             print(f"❌ An error occurred: {e}. Please try again.")
 
 
 # Run main function when script is executed directly
 if __name__ == "__main__":
     main()
-
