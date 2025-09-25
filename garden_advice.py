@@ -5,7 +5,7 @@ A Python application that provides seasonal gardening tips based on the current
 month. The application loads tips from a JSON configuration file or falls back
 to default tips if the configuration file is not available.
 
-Author: Nelson
+Author: Senzo Ncekana
 Version: 1.0.0
 """
 
