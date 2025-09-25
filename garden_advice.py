@@ -133,37 +133,161 @@ def get_garden_tips(month: int) -> List[str]:
         return ["No tips available"]
 
 
+def get_user_input() -> int:
+    """
+    Get month input from user with validation.
+
+    Returns:
+        int: Valid month number (1-12)
+    """
+    while True:
+        try:
+            user_input = input("\nEnter a month (1-12) or press Enter for current month: ").strip()
+
+            # If user presses Enter, use current month
+            if not user_input:
+                return datetime.datetime.now().month
+
+            month = int(user_input)
+
+            if 1 <= month <= 12:
+                return month
+            else:
+                print("❌ Error: Month must be between 1 and 12. Please try again.")
+
+        except ValueError:
+            print("❌ Error: Please enter a valid number between 1 and 12.")
+        except KeyboardInterrupt:
+            print("\n\n👋 Goodbye! Happy gardening!")
+            exit(0)
+        except Exception as e:
+            print(f"❌ Unexpected error: {e}. Please try again.")
+
+
 def display_advice() -> None:
     """
-    Display gardening advice for the current month.
-
-    Shows the current month, season, and relevant gardening tips.
+    Show advice and get current month with enhanced user experience.
     """
-    now = datetime.datetime.now()
-    current_month = now.month
+    print("🌱 Welcome to Garden Advice! 🌱")
+    print("=" * 50)
+
+    # Get month input from user
+    current_month = get_user_input()
 
     # Get season and tips
     season = get_season(current_month)
     tips_list = get_garden_tips(current_month)
 
-    # Display information
-    print("Welcome to Garden Advice!")
-    print(f"Current month: {current_month}")
-    print(f"Season: {season}")
-    print("\nGardening Tips:")
+    # Display information with better formatting
+    print(f"\n📅 Current month: {current_month}")
+    print(f"🍂 Season: {season}")
+    print(f"\n💡 Gardening Tips for {season}:")
+    print("-" * 30)
 
-    # Show tips with proper numbering
-    for index, tip in enumerate(tips_list, 1):
-        print(f"{index}. {tip}")
+    # Show tips with better formatting
+    if tips_list and tips_list[0] not in ["Invalid month", "No tips available"]:
+        for index, tip in enumerate(tips_list, 1):
+            print(f"  {index}. {tip}")
+    else:
+        print("  No tips available for this month.")
+
+    print("\n" + "=" * 50)
+    print("Happy gardening! 🌿")
+
+
+def show_multiple_months() -> None:
+    """
+    Allow user to get tips for multiple months.
+    """
+    print("\n📅 Multiple Month Tips")
+    print("-" * 30)
+
+    months_to_show = []
+    while True:
+        try:
+            month_input = input("Enter a month (1-12) or 'done' to finish: ").strip().lower()
+
+            if month_input == 'done':
+                break
+
+            month = int(month_input)
+            if 1 <= month <= 12:
+                months_to_show.append(month)
+                print(f"✅ Added month {month}")
+            else:
+                print("❌ Month must be between 1 and 12.")
+
+        except ValueError:
+            print("❌ Please enter a valid number or 'done'.")
+        except KeyboardInterrupt:
+            print("\n\n👋 Goodbye! Happy gardening!")
+            exit(0)
+
+    if months_to_show:
+        print(f"\n🌱 Tips for months: {', '.join(map(str, months_to_show))}")
+        print("=" * 50)
+
+        for month in months_to_show:
+            season = get_season(month)
+            tips_list = get_garden_tips(month)
+
+            print(f"\n📅 Month {month} ({season}):")
+            print("-" * 20)
+
+            if tips_list and tips_list[0] not in ["Invalid month", "No tips available"]:
+                for index, tip in enumerate(tips_list, 1):
+                    print(f"  {index}. {tip}")
+            else:
+                print("  No tips available.")
 
 
 def main() -> None:
     """
-    Main function to run the garden advice application.
-
-    This is the entry point of the application.
+    Main function with enhanced user experience and menu options.
     """
-    display_advice()
+    while True:
+        try:
+            print("\n🌱 Garden Advice Menu 🌱")
+            print("=" * 30)
+            print("1. Get tips for current month")
+            print("2. Get tips for specific month")
+            print("3. Get tips for multiple months")
+            print("4. Exit")
+            print("-" * 30)
+
+            choice = input("Choose an option (1-4): ").strip()
+
+            if choice == '1':
+                current_month = datetime.datetime.now().month
+                season = get_season(current_month)
+                tips_list = get_garden_tips(current_month)
+
+                print(f"\n📅 Current month: {current_month}")
+                print(f"🍂 Season: {season}")
+                print(f"\n💡 Gardening Tips for {season}:")
+                print("-" * 30)
+
+                if tips_list and tips_list[0] not in ["Invalid month", "No tips available"]:
+                    for index, tip in enumerate(tips_list, 1):
+                        print(f"  {index}. {tip}")
+                else:
+                    print("  No tips available for this month.")
+
+            elif choice == '2':
+                display_advice()
+            elif choice == '3':
+                show_multiple_months()
+            elif choice == '4':
+                print("\n👋 Thank you for using Garden Advice! Happy gardening! 🌿")
+                break
+            else:
+                print("❌ Invalid choice. Please select 1, 2, 3, or 4.")
+
+        except KeyboardInterrupt:
+            print("\n\n👋 Goodbye! Happy gardening!")
+            break
+        except Exception as e:
+            print(f"❌ An error occurred: {e}. Please try again.")
 
 
 # Run main function when script is executed directly
