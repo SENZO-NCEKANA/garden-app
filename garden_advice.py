@@ -1,13 +1,20 @@
 """
-Garden advice app
-Gives gardening tips based on month and season
+Garden Advice Application
+
+A Python application that provides seasonal gardening tips based on the current
+month. The application loads tips from a JSON configuration file or falls back
+to default tips if the configuration file is not available.
+
+Author: Senzo Ncekana
+Version: 1.0.0
 """
 
 import datetime
 import json
+from typing import Dict, List
 
-# default tips if config file is missing
-default_tips = {
+# Default tips if config file is missing
+DEFAULT_TIPS: Dict[str, List[str]] = {
     "Spring": [
         "Start seeds indoors for warm-season crops",
         "Prepare garden beds by adding compost",
@@ -31,55 +38,87 @@ default_tips = {
 }
 
 
-def load_tips():
-    """load tips from file"""
-    # add better error handling for file loading
+def load_tips() -> Dict[str, List[str]]:
+    """
+    Load gardening tips from configuration file.
+
+    Attempts to load tips from 'tips_config.json'. If the file is not found,
+    contains invalid JSON, or encounters any other error, falls back to default
+    tips.
+
+    Returns:
+        Dict[str, List[str]]: Dictionary containing seasonal tips
+
+    Raises:
+        No exceptions are raised; all errors are handled gracefully
+    """
     try:
-        f = open('tips_config.json', 'r', encoding='utf-8')
-        data = json.load(f)
-        f.close()
-        return data
+        with open('tips_config.json', 'r', encoding='utf-8') as file:
+            data = json.load(file)
+            return data
     except FileNotFoundError:
         print("Warning: tips_config.json not found. Using default tips.")
-        return default_tips
-    except json.JSONDecodeError as e:
-        print(f"Warning: Error parsing JSON file: {e}. Using default tips.")
-        return default_tips
-    except OSError as e:
-        print(f"Warning: Error loading file: {e}. Using default tips.")
-        return default_tips
-    except PermissionError as e:
-        print(f"Warning: Permission error: {e}. Using default tips.")
-        return default_tips
-    except Exception as e:
-        print(f"Warning: Unexpected error: {e}. Using default tips.")
-        return default_tips
+        return DEFAULT_TIPS
+    except json.JSONDecodeError as error:
+        print(f"Warning: Error parsing JSON file: {error}. "
+              f"Using default tips.")
+        return DEFAULT_TIPS
+    except PermissionError as error:
+        print(f"Warning: Permission error: {error}. Using default tips.")
+        return DEFAULT_TIPS
+    except OSError as error:
+        print(f"Warning: Error loading file: {error}. Using default tips.")
+        return DEFAULT_TIPS
+    except Exception as error:
+        print(f"Warning: Unexpected error: {error}. Using default tips.")
+        return DEFAULT_TIPS
 
 
-# load the tips
-tips = load_tips()
+# Load the tips
+TIPS = load_tips()
 
 
-def get_season(month):
+def get_season(month: int) -> str:
     """
-    Get season for month
+    Determine the season based on the month.
+
+    Args:
+        month (int): Month number (1-12)
+
+    Returns:
+        str: Season name ("Spring", "Summer", "Autumn", or "Winter")
+
+    Note:
+        This function uses Southern Hemisphere seasons:
+        - Spring: September, October, November
+        - Summer: December, January, February
+        - Autumn: March, April, May
+        - Winter: June, July, August
     """
-    if month == 9 or month == 10 or month == 11:
+    if month in [9, 10, 11]:
         return "Spring"
-    elif month == 12 or month == 1 or month == 2:
+    elif month in [12, 1, 2]:
         return "Summer"
-    elif month == 3 or month == 4 or month == 5:
+    elif month in [3, 4, 5]:
         return "Autumn"
     else:
         return "Winter"
 
 
-def get_garden_tips(month):
+def get_garden_tips(month: int) -> List[str]:
     """
-    Get tips for month
-    check if month is valid
+    Get gardening tips for a specific month.
+
+    Args:
+        month (int): Month number (1-12)
+
+    Returns:
+        List[str]: List of gardening tips for the month's season
+
+    Note:
+        Returns error messages if month is invalid
     """
-    # add input validation for non-integer values
+    # Input validation for non-integer values
     if not isinstance(month, int):
         print("Error: Month must be an integer")
         return ["Invalid month"]
@@ -88,41 +127,45 @@ def get_garden_tips(month):
         return ["Invalid month"]
 
     season = get_season(month)
-    if season in tips:
-        return tips[season]
+    if season in TIPS:
+        return TIPS[season]
     else:
         return ["No tips available"]
 
 
-def display_advice():
+def display_advice() -> None:
     """
-    Show advice and get current month
+    Display gardening advice for the current month.
+
+    Shows the current month, season, and relevant gardening tips.
     """
     now = datetime.datetime.now()
     current_month = now.month
 
-    # get season and tips
+    # Get season and tips
     season = get_season(current_month)
     tips_list = get_garden_tips(current_month)
 
-    # display info
+    # Display information
     print("Welcome to Garden Advice!")
-    print("Current month:", current_month)
-    print("Season:", season)
+    print(f"Current month: {current_month}")
+    print(f"Season: {season}")
     print("\nGardening Tips:")
 
-    # show tips
-    counter = 1
-    for tip in tips_list:
-        print(str(counter) + ". " + tip)
-        counter = counter + 1
+    # Show tips with proper numbering
+    for index, tip in enumerate(tips_list, 1):
+        print(f"{index}. {tip}")
 
 
-def main():
-    """main function"""
+def main() -> None:
+    """
+    Main function to run the garden advice application.
+
+    This is the entry point of the application.
+    """
     display_advice()
 
 
-# run main function
+# Run main function when script is executed directly
 if __name__ == "__main__":
     main()
