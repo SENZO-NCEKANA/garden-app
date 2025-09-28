@@ -1,31 +1,82 @@
-# Hardcoded values for the season and plant type
-season = "summer"  # TODO: Replace with input() to allow user interaction.
-plant_type = "flower"  # TODO: Replace with input() to allow user interaction.
+# garden_advice.py
 
-# Variable to hold gardening advice
-advice = ""
+def get_user_input(prompt, valid_options):
+    """
+    Get user input and validate it against allowed options.
 
-# Determine advice based on the season
-if season == "summer":
-    advice += "Water your plants regularly and provide some shade.\n"
-elif season == "winter":
-    advice += "Protect your plants from frost with covers.\n"
-else:
-    advice += "No advice for this season.\n"
+    Parameters:
+        prompt (str): The input prompt for the user.
+        valid_options (list): List of valid options to accept.
 
-# Determine advice based on the plant type
-if plant_type == "flower":
-    advice += "Use fertiliser to encourage blooms."
-elif plant_type == "vegetable":
-    advice += "Keep an eye out for pests!"
-else:
-    advice += "No advice for this type of plant."
+    Returns:
+        str: Validated user input.
+    """
+    while True:
+        user_input = input(prompt).strip().lower()
+        if user_input in valid_options:
+            return user_input
+        print(f"Invalid option. Please choose from: "
+              f"{', '.join(valid_options)}")
 
-# Print the generated advice
-print(advice)
 
-# TODO: Examples of possible features to add:
-# - Add detailed comments explaining each block of code.
-# - Refactor the code into functions for better readability and modularity.
-# - Store advice in a dictionary for multiple plants and seasons.
-# - Recommend plants based on the entered season.
+def generate_advice(season, plant_type):
+    """
+    Generate gardening advice based on season and plant type.
+
+    Parameters:
+        season (str): Current season.
+        plant_type (str): Type of plant.
+
+    Returns:
+        str: Gardening advice.
+    """
+    # Advice dictionary
+    advice_dict = {
+        "summer": {
+            "flower": (
+                "Water your plants regularly, provide shade, and use "
+                "fertiliser to encourage blooms."
+            ),
+            "vegetable": (
+                "Water your plants regularly and keep an eye out for pests!"
+            ),
+        },
+        "winter": {
+            "flower": (
+                "Protect your plants from frost with covers and use "
+                "fertiliser sparingly."
+            ),
+            "vegetable": (
+                "Protect your plants from frost and monitor for pests indoors."
+            ),
+        }
+    }
+
+    # Default advice if season or plant_type not recognized
+    return advice_dict.get(season, {}).get(
+        plant_type, "No specific advice for this combination."
+    )
+
+
+def main():
+    print("🌱 Welcome to the Gardening Advice App! 🌱\n")
+
+    seasons = ["summer", "winter"]
+    plant_types = ["flower", "vegetable"]
+
+    # Get user input
+    season = get_user_input(
+        "Enter the current season (summer/winter): ", seasons
+    )
+    plant_type = get_user_input(
+        "Enter the type of plant (flower/vegetable): ", plant_types
+    )
+
+    # Generate and display advice
+    advice = generate_advice(season, plant_type)
+    print("\nYour Gardening Advice:")
+    print(advice)
+
+
+if __name__ == "__main__":
+    main()

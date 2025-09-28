@@ -4,12 +4,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Garden Advice</title>
+    <title>Garden Advice App</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c5530;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        
+        .button-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .advice-button {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+        
+        .advice-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        }
+        
+        .advice-button:active {
+            transform: translateY(0);
+        }
+        
+        .advice-display {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            min-height: 100px;
+            display: none;
+        }
+        
+        .advice-text {
+            font-size: 1.1em;
+            line-height: 1.6;
+            color: #2c5530;
+        }
+        
+        .emoji {
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #666;
+            font-size: 0.9em;
+        }
+    </style>
 </head>
 
 <body>
-    <h1>Garden Advice Program</h1>
-    <p>Check the browser console for gardening advice based on the hardcoded season and plant type.</p>
+    <div class="container">
+        <h1><span class="emoji">🌱</span>Garden Advice App<span class="emoji">🌱</span></h1>
+        <p class="subtitle">Get personalized gardening advice based on your season and plant type</p>
+        
+        <div class="button-container">
+            <button class="advice-button" onclick="runGardenAdvice()">
+                Get Gardening Advice
+            </button>
+        </div>
+        
+        <div id="advice-display" class="advice-display">
+            <div id="advice-text" class="advice-text"></div>
+        </div>
+        
+        <div class="footer">
+            <p>Choose your season and plant type to receive personalized gardening tips!</p>
+        </div>
+    </div>
+    
     <!-- Link the JavaScript file -->
     <script src="garden_advice.js"></script>
 </body>
