@@ -1,15 +1,5 @@
 """
 Garden Advice Application
-
-A Python application that provides personalized gardening advice based on
-season and plant type. The application includes both a command-line interface
-and a web interface for user interaction.
-
-Features:
-- Interactive user input validation
-- Season-based gardening advice (summer/winter)
-- Plant type specific recommendations (flower/vegetable)
-- Modular, well-documented code structure
 """
 
 
@@ -35,20 +25,12 @@ def get_user_input(prompt, valid_options):
 def generate_advice(season, plant_type):
     """
     Generate gardening advice based on season and plant type.
-
-    Parameters:
-        season (str): Current season.
-        plant_type (str): Type of plant.
-
-    Returns:
-        str: Gardening advice.
     """
-    # Advice dictionary
     advice_dict = {
         "summer": {
             "flower": (
                 "Water your plants regularly, provide shade, and use "
-                "fertiliser to encourage blooms."
+                "fertilizer to encourage blooms."
             ),
             "vegetable": (
                 "Water your plants regularly and keep an eye out for pests!"
@@ -57,7 +39,7 @@ def generate_advice(season, plant_type):
         "winter": {
             "flower": (
                 "Protect your plants from frost with covers and use "
-                "fertiliser sparingly."
+                "fertilizer sparingly."
             ),
             "vegetable": (
                 "Protect your plants from frost and monitor for pests indoors."
@@ -65,7 +47,6 @@ def generate_advice(season, plant_type):
         }
     }
 
-    # Default advice if season or plant_type not recognized
     return advice_dict.get(season, {}).get(
         plant_type, "No specific advice for this combination."
     )
@@ -74,10 +55,6 @@ def generate_advice(season, plant_type):
 def main():
     """
     Main function to run the garden advice application.
-
-    This function handles the user interaction flow, collects user input
-    for season and plant type, generates appropriate advice, and displays
-    the results to the user.
     """
     print("🌱 Welcome to the Gardening Advice App! 🌱\n")
 
