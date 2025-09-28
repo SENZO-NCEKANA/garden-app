@@ -1,4 +1,17 @@
-# garden_advice.py
+"""
+Garden Advice Application
+
+A Python application that provides personalized gardening advice based on
+season and plant type. The application includes both a command-line interface
+and a web interface for user interaction.
+
+Features:
+- Interactive user input validation
+- Season-based gardening advice (summer/winter)
+- Plant type specific recommendations (flower/vegetable)
+- Modular, well-documented code structure
+"""
+
 
 def get_user_input(prompt, valid_options):
     """
@@ -59,6 +72,13 @@ def generate_advice(season, plant_type):
 
 
 def main():
+    """
+    Main function to run the garden advice application.
+
+    This function handles the user interaction flow, collects user input
+    for season and plant type, generates appropriate advice, and displays
+    the results to the user.
+    """
     print("🌱 Welcome to the Gardening Advice App! 🌱\n")
 
     seasons = ["summer", "winter"]
