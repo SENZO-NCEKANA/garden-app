@@ -1,15 +1,16 @@
 """
-Garden Advice Application
+A simple command-line application that provides gardening advice
+based on the season and type of plant.
 """
 
 
-def get_user_input(prompt, valid_options):
+def get_user_input(prompt: str, valid_options: list[str]) -> str:
     """
-    Get user input and validate it against allowed options.
+    Prompt the user for input and validate it against allowed options.
 
-    Parameters:
-        prompt (str): The input prompt for the user.
-        valid_options (list): List of valid options to accept.
+    Args:
+        prompt (str): The message displayed to the user.
+        valid_options (list[str]): List of valid input options.
 
     Returns:
         str: Validated user input.
@@ -18,13 +19,21 @@ def get_user_input(prompt, valid_options):
         user_input = input(prompt).strip().lower()
         if user_input in valid_options:
             return user_input
-        print(f"Invalid option. Please choose from: "
-              f"{', '.join(valid_options)}")
+        print(
+            f"Invalid option. Please choose from: {', '.join(valid_options)}"
+        )
 
 
-def generate_advice(season, plant_type):
+def generate_advice(season: str, plant_type: str) -> str:
     """
-    Generate gardening advice based on season and plant type.
+    Generate gardening advice based on the season and plant type.
+
+    Args:
+        season (str): Current season (e.g., 'summer', 'winter').
+        plant_type (str): Type of plant (e.g., 'flower', 'vegetable').
+
+    Returns:
+        str: Gardening advice for the specified season and plant type.
     """
     advice_dict = {
         "summer": {
@@ -44,7 +53,7 @@ def generate_advice(season, plant_type):
             "vegetable": (
                 "Protect your plants from frost and monitor for pests indoors."
             ),
-        }
+        },
     }
 
     return advice_dict.get(season, {}).get(
@@ -52,9 +61,10 @@ def generate_advice(season, plant_type):
     )
 
 
-def main():
+def main() -> None:
     """
-    Main function to run the garden advice application.
+    Main function to run the Gardening Advice App.
+    Prompts the user for season and plant type and displays advice.
     """
     print("🌱 Welcome to the Gardening Advice App! 🌱\n")
 
